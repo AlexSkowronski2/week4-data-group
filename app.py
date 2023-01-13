@@ -194,8 +194,10 @@ app.css.append_css({
 )
 def change_model_age(input_value, dataframe = df):
     condensed_df = age_distribution(dataframe, input_value)
-    graph = px.bar(condensed_df, x="age_range", y="order_date", title="Age Range")
-    return graph
+    return px.bar(condensed_df, x="age_range", y="order_date", title="Age Range", labels = {
+        'age_range': "Age Ranges",
+        'order_date': "Quantity",
+    })
 
 @app.callback(
     Output("time-distribution", "figure"),
@@ -203,8 +205,10 @@ def change_model_age(input_value, dataframe = df):
 )
 def change_model_time(input_value, dataframe = df):
     condensed_df = time_distribution(dataframe, input_value)
-    graph = px.bar(condensed_df, x="time_range", y="order_date", title="Time Range")
-    return graph
+    return px.bar(condensed_df, x="time_range", y="order_date", title="Time Range", labels = {
+        'time_range': "Time Range",
+        'order_date': "Quantity",
+    })
 
 @app.callback(
     Output('graph-output','figure'),
@@ -212,7 +216,10 @@ def change_model_time(input_value, dataframe = df):
 )
 def update_graph(input_value):
     data = toothbrush_data(df, input_value)
-    return px.bar(data, x="customer_age", y="order_quantity", barmode="group", title="Order Quantity")
+    return px.bar(data, x="customer_age", y="order_quantity", barmode="group", title="Order Quantity", labels = {
+        'customer_age' : 'Customer Ages',
+        'order_quantity' : 'Order Quantity'
+    })
 
 
 if __name__ == "__main__":
