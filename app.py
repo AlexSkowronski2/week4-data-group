@@ -3,6 +3,7 @@ import plotly.express as px
 import pandas as pd
 import psycopg2
 import dotenv, os
+import plotly.graph_objects as go
 
 app = dash.Dash(__name__)
 
@@ -182,7 +183,8 @@ app.layout = html.Div(
         ),
 
         dcc.Graph(id='graph-output'),
-    ])])
+    ]),
+])
 
 app.css.append_css({
         "external_url":"http://codepen.io/chriddyp/pen/bWLwgP.css"
@@ -194,7 +196,7 @@ app.css.append_css({
 )
 def change_model_age(input_value, dataframe = df):
     condensed_df = age_distribution(dataframe, input_value)
-    figure = px.bar(condensed_df, x="age_range", y="order_date", title="Age Range", labels = {
+    figure = px.bar(condensed_df, x="age_range", y="order_date", text_auto = True, title="Age Range", labels = {
         'age_range': "Age Ranges",
         'order_date': "Quantity",
     })
@@ -207,7 +209,7 @@ def change_model_age(input_value, dataframe = df):
 )
 def change_model_time(input_value, dataframe = df):
     condensed_df = time_distribution(dataframe, input_value)
-    figure = px.bar(condensed_df, x="time_range", y="order_date", title="Time Range", labels = {
+    figure = px.bar(condensed_df, x="time_range", y="order_date", text_auto = True, title="Time Range", labels = {
         'time_range': "Time Range",
         'order_date': "Quantity",
     })
