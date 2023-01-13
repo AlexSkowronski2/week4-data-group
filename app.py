@@ -178,7 +178,7 @@ app.layout = html.Div(
                 ]
             ),
             html.Div(
-                html.H3('Statistics on sales of {}'), className="info"
+                html.H3('Statistics on sales of {}'), className="info",
         ),
 
         dcc.Graph(id='graph-output'),
@@ -194,10 +194,12 @@ app.css.append_css({
 )
 def change_model_age(input_value, dataframe = df):
     condensed_df = age_distribution(dataframe, input_value)
-    return px.bar(condensed_df, x="age_range", y="order_date", title="Age Range", labels = {
+    figure = px.bar(condensed_df, x="age_range", y="order_date", title="Age Range", labels = {
         'age_range': "Age Ranges",
         'order_date': "Quantity",
     })
+    figure.update_traces(marker_color = 'pink')
+    return figure
 
 @app.callback(
     Output("time-distribution", "figure"),
@@ -205,10 +207,12 @@ def change_model_age(input_value, dataframe = df):
 )
 def change_model_time(input_value, dataframe = df):
     condensed_df = time_distribution(dataframe, input_value)
-    return px.bar(condensed_df, x="time_range", y="order_date", title="Time Range", labels = {
+    figure = px.bar(condensed_df, x="time_range", y="order_date", title="Time Range", labels = {
         'time_range': "Time Range",
         'order_date': "Quantity",
     })
+    figure.update_traces(marker_color = 'pink')
+    return figure
 
 @app.callback(
     Output('graph-output','figure'),
@@ -216,10 +220,13 @@ def change_model_time(input_value, dataframe = df):
 )
 def update_graph(input_value):
     data = toothbrush_data(df, input_value)
-    return px.bar(data, x="customer_age", y="order_quantity", barmode="group", title="Order Quantity", labels = {
+    figure = px.bar(data, x="customer_age", y="order_quantity", barmode="group", title="Order Quantity", labels = {
         'customer_age' : 'Customer Ages',
         'order_quantity' : 'Order Quantity'
     })
+    figure.update_traces(marker_color = 'pink')
+    return figure
+
 
 
 if __name__ == "__main__":
