@@ -194,11 +194,8 @@ app.css.append_css({
 )
 def change_model_age(input_value, dataframe = df):
     condensed_df = age_distribution(dataframe, input_value)
-    if input_value == "Toothbrush 2000":
-        return px.bar(condensed_df, x="age_range", y="order_date", title="Age Range")
-    elif input_value == "Both":
-        return px.bar(condensed_df, x="age_range", y="order_date", title="Age Range")
-    return px.bar(condensed_df, x="age_range", y="order_date", title="Age Range")
+    graph = px.bar(condensed_df, x="age_range", y="order_date", title="Age Range")
+    return graph
 
 @app.callback(
     Output("time-distribution", "figure"),
@@ -206,11 +203,8 @@ def change_model_age(input_value, dataframe = df):
 )
 def change_model_time(input_value, dataframe = df):
     condensed_df = time_distribution(dataframe, input_value)
-    if input_value == "Toothbrush 2000" or input_value == "Both":
-        return px.bar(condensed_df, x="time_range", y="order_date", title="Time Range")
-    elif input_value == "Both":
-        return px.bar(condensed_df, x="age_range", y="order_date", title="Time Range")
-    return px.bar(condensed_df, x="time_range", y="order_date", title="Time Range")
+    graph = px.bar(condensed_df, x="time_range", y="order_date", title="Time Range")
+    return graph
 
 @app.callback(
     Output('graph-output','figure'),
